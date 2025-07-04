@@ -1,0 +1,27 @@
+{% extends 'todo/base.html' %}
+
+{% block content %}
+  <div class="card shadow-sm p-4">
+    <h2 class="card-title">{{ task.title }}</h2>
+
+    <p class="mt-3"><strong>Description:</strong><br>
+      {{ task.description|default:"No description provided." }}
+    </p>
+
+    <p><strong>Status:</strong>
+      {% if task.complete %}
+        <span class="badge bg-success">Completed</span>
+      {% else %}
+        <span class="badge bg-warning text-dark">Incomplete</span>
+      {% endif %}
+    </p>
+
+    <p><strong>Created on:</strong> {{ task.created|date:"D d M Y, H:i" }}</p>
+
+    <div class="mt-4 d-flex gap-2">
+      <a href="{% url 'task-update' task.id %}" class="btn btn-sm btn-outline-primary">Edit</a>
+      <a href="{% url 'task-delete' task.id %}" class="btn btn-sm btn-outline-danger">Delete</a>
+      <a href="{% url 'task-list' %}" class="btn btn-sm btn-secondary">← Back to List</a>
+    </div>
+  </div>
+{% endblock %}
