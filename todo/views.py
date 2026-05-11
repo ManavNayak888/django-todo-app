@@ -8,17 +8,14 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.views import View
 
-from django.views.decorators.http import require_POST
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-
 
 class TaskListView(LoginRequiredMixin, ListView):
     model = Task
     context_object_name = 'tasks'
 
     def get_queryset(self):
-        return Task.objects.filter(user=self.request.user).order_by('-created')
+        return Task.objects.filter(user=self.request.user).order_by('created')
 
 
 class TaskDetailView(LoginRequiredMixin, DetailView):
